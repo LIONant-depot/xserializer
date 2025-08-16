@@ -20,7 +20,7 @@ xserializer is your ultimate tool for resource-heavy applications!
 - **MIT License**: Free and open for all your projects.
 - **Minimal Dependencies**: Requires only `xfile` for file I/O and `xerr` for error handling.
 - **Easy Integration**: Just include `xserializer.h` and `xserializer.cpp` in your project.
-- **Unit test & Documentation**: Check the documentation here
+- **Unit test & Documentation**: Check the [documentation here.](https://github.com/LIONant-depot/xserializer/tree/main/documentation)
 
 ## Dependencies
 
