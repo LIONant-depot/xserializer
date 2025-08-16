@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\source\xserializer.cpp" />
+    <ClCompile Include="..\..\dependencies\xcompression\source\xcompression.cpp">
+      <Filter>Dependencies\xcompression</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\dependencies\xfile\source\xfile.cpp">
+      <Filter>Dependencies\xfiles</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\source\xserializer.h" />
+    <ClInclude Include="..\..\dependencies\xcompression\source\xcompression.h">
+      <Filter>Dependencies\xcompression</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dependencies\xfile\source\xfile.h">
+      <Filter>Dependencies\xfiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dependencies\xdelegate\source\xdelegate.h">
+      <Filter>Dependencies\xdelegate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dependencies\xerr\source\xerr.h">
+      <Filter>Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\unittest\xserializer_unittest.h">
+      <Filter>Unit-Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\implementation\xserializer_inline.h">
+      <Filter>Implementation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Dependencies">
+      <UniqueIdentifier>{d884b7bf-3df0-4f7c-bb1b-02aad2d8976d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\xcompression">
+      <UniqueIdentifier>{4adc7d68-9a2e-464f-a05c-7da510655b09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\xfiles">
+      <UniqueIdentifier>{029d46a8-b933-4f77-81f9-a15d5516617e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\xdelegate">
+      <UniqueIdentifier>{8bbcd53e-fde0-43f7-a55f-4a058de7fcd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Implementation">
+      <UniqueIdentifier>{9bbc35ee-1c72-45b6-83e6-36ad39ffc973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit-Tests">
+      <UniqueIdentifier>{94e90191-756d-408d-810d-655f014536cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Documentation">
+      <UniqueIdentifier>{d3a3d931-2f1d-47ee-929f-f008847705f2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" />
+    <None Include="..\..\documentation\AdvancedUsage.md">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\documentation\ExampleWalkthrough.md">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\documentation\FAQ.md">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\documentation\GettingStarted.md">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\documentation\Introduction.md">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\documentation\MemoryManagement.md">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\documentation\SerializationBasics.md">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\documentation\ThreeStageLoading.md">
+      <Filter>Documentation</Filter>
+    </None>
+  </ItemGroup>
+</Project>
