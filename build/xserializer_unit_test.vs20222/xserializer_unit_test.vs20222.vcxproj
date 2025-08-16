@@ -153,6 +153,7 @@
     <None Include="..\..\documentation\SerializationBasics.md" />
     <None Include="..\..\documentation\ThreeStageLoading.md" />
     <None Include="..\..\README.md" />
+    <None Include="..\updateDependencies.bat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

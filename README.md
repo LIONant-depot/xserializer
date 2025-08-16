@@ -28,6 +28,13 @@ xserializer is your ultimate tool for resource-heavy applications!
 - [xerr](https://github.com/LIONant-depot/xerr): For fast and robust error handling.
 - [xcompression](https://github.com/LIONant-depot/xcompression): For fast compression and decompression of data.
 
+## Getting started
+
+- Run the ```build\updateDependencies.bat``` to collect all the dependendencies
+- Simply add ```xserializer.h``` and ```xserializer.cpp``` in your project
+- You will need to add the paths for any dependency (include for xcompression for the lib)
+
+
 ## Code Example
 
 ```cpp

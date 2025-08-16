@@ -80,5 +80,6 @@
     <None Include="..\..\documentation\ThreeStageLoading.md">
       <Filter>Documentation</Filter>
     </None>
+    <None Include="..\updateDependencies.bat" />
   </ItemGroup>
 </Project>
