@@ -24,7 +24,7 @@ rmdir "../dependencies/xerr" /S /Q
 git clone https://github.com/LIONant-depot/xerr.git "../dependencies/xerr"
 if %ERRORLEVEL% GEQ 1 goto :ERROR
 
-rmdir "../dependencies/xerr" /S /Q
+rmdir "../dependencies/xfile" /S /Q
 git clone https://github.com/LIONant-depot/xfile.git "../dependencies/xfile"
 if %ERRORLEVEL% GEQ 1 goto :ERROR
 
