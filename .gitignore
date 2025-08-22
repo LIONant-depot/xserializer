@@ -417,3 +417,4 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
+/build/xserializer_unit_test.vs2022
