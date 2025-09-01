@@ -179,7 +179,7 @@ namespace xserializer
         //
         // Set the version as specifies by the user
         //
-        setResourceVersion(T::VERSION);
+        setResourceVersion(T::xserializer_version_v);
 
         // Assign it so it is accessible for other functions
         // but we keep the owner
@@ -351,7 +351,7 @@ namespace xserializer
                 const std::span NewView{ reinterpret_cast<const std::byte*>(&pView[0]), sizeof(of_type_t) * Size };
 
                 File.m_iPack        = m_iPack;
-                File.m_ClassPos     = static_cast<std::uint32_t>(Offset.m_Value);
+                File.m_ClassPos     = static_cast<std::uint32_t>(Offset);
                 File.m_pClass       = &const_cast<std::byte&>(reinterpret_cast<const std::byte&>(NewView[0]));
                 File.m_ClassSize    = static_cast<std::uint32_t>(NewView.size());
 
@@ -435,7 +435,7 @@ namespace xserializer
         if ( auto Err = LoadHeader(File, sizeof(*pObject)); Err ) 
             return Err;
 
-        if( getResourceVersion() != T::VERSION )
+        if( getResourceVersion() != T::xserializer_version_v)
             return xerr::create<state::WRONG_VERSION, "Wrong resource version">();
 
         pObject = (T*)LoadObject(File);
