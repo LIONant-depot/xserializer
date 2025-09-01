@@ -18,7 +18,7 @@ namespace xserializer::unittest
 
         struct data3 : public data1
         {
-            constexpr static auto VERSION = 1;
+            constexpr static auto xserializer_version_v = 1;
 
             data2                   m_GoInStatic;
             data2                   m_DontDynamic;
