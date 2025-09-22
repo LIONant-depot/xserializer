@@ -765,7 +765,7 @@ namespace xserializer
                 {
                     std::uint32_t DecompressSize = 0;
                     auto Err = Decompress.Unpack(DecompressSize
-                                    , std::span<std::byte>{&pPackPointers[iPack][ReadSoFar], BlockSize }
+                                    , std::span<std::byte>{&pPackPointers[iPack][ReadSoFar], Pack.m_UncompressSize - ReadSoFar }
                                     , std::span<std::byte>{reinterpret_cast<std::byte*>(&ReadBuffer[iCurrentBuffer]), pBlockSizes[iBlock]});
                     assert( Err == false );
                     ReadSoFar += DecompressSize;
