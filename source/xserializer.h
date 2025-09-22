@@ -9,8 +9,8 @@
 #include <cassert>
 #include <vector>
 
-#include "source/xfile.h"
-#include "source/xerr.h"
+#include "dependencies/xfile/source/xfile.h"
+#include "dependencies/xerr/source/xerr.h"
 
 namespace xserializer
 {
