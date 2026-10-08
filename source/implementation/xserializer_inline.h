@@ -422,7 +422,11 @@ namespace xserializer
         // deal with temp data
         if (m_bFreeTempData && m_pTempBlockData)
         {
+        #if defined(_MSC_VER)
+            // destroy_at on a void* is ill-formed in standard C++ (MSVC accepts it as a no-op), so other
+            // compilers simply skip it - same effective behavior.
             std::destroy_at(m_pTempBlockData);
+        #endif
         }
     }
 
