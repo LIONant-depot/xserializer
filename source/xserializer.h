@@ -152,6 +152,10 @@ namespace xserializer
 
     inline constexpr default_memory_hadler default_memory_handler_v;
 
+    // Every pack is loaded into one allocation of this alignment; an array inside a pack starts at a multiple of its type's
+    // alignment up to this (see stream::HandlePtrDetails).
+    inline constexpr std::size_t load_pack_alignment_v = 16;
+
     class stream;
     // User should place all their serializing function inside the name space
     // Note that the full name space is:
@@ -300,7 +304,7 @@ namespace xserializer
 //                    file::stream&   getTable            (void)                                                                                      const   noexcept;
         constexpr   bool            isLocalVariable     (const std::byte* pRange)                                                                   const   noexcept;
         constexpr   std::int32_t    ComputeLocalOffset  (const std::byte* pItem)                                                                    const   noexcept;
-                    xerr            HandlePtrDetails    (const std::byte* pA, std::size_t SizeofA, std::size_t Count, mem_type MemoryFlags)                 noexcept;
+                    xerr            HandlePtrDetails    (const std::byte* pA, std::size_t SizeofA, std::size_t AlignofA, std::size_t Count, mem_type MemoryFlags) noexcept;
         inline      xerr            Handle              (const std::span<const std::byte> View)                                                             noexcept;
 
     protected:

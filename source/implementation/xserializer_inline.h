@@ -320,6 +320,7 @@ namespace xserializer
         (
             reinterpret_cast<const std::byte*>(&pView)
             , sizeof(T)
+            , alignof(T)
             , Size
             , MemoryFlags
         ); Err ) return Err;

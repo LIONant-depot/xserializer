@@ -1,5 +1,6 @@
 
 #include "xserializer.h"
+#include <algorithm>
 #include "source/xcompression.h"
 #include <format>
 
@@ -142,7 +143,7 @@ namespace xserializer
 
     //------------------------------------------------------------------------------
 
-    xerr stream::HandlePtrDetails( const std::byte* pA, std::size_t SizeofA, std::size_t Count, mem_type MemoryFlags ) noexcept
+    xerr stream::HandlePtrDetails( const std::byte* pA, std::size_t SizeofA, std::size_t AlignofA, std::size_t Count, mem_type MemoryFlags ) noexcept
     {
         // If the parent is in not in a common pool then its children must also not be in a common pool.
         // The theory is that if the parent is not in a common pool it could be deallocated and if the child 
@@ -209,10 +210,25 @@ namespace xserializer
         }
 
         // Make sure we are at the end of the buffer before preallocating
-        // I have change the alignment from 4 to 8 because of 64 bits OS.
-        // it may help. In the future will be nice if the user could specify the alignment.
         if ( auto Err = getW().SeekEnd(0); Err ) 
             return {Err.m_pMessage};
+
+        // The array must START at a multiple of its type's alignment: the loader hands out pointers straight into the pack
+        // (allocated at load_pack_alignment_v), so an array of SIMD types (xmath::fmat4, alignof 16) placed at an offset that
+        // is only a multiple of 8 is read with aligned SSE loads at a misaligned address - a crash with clang/gcc (which emit
+        // movaps for those loads), silently fine with MSVC (movups). Never less than 8 (what it always was), never more than
+        // the pack's own alignment (more could not be honored when loading).
+        {
+            const std::size_t Alignment = std::clamp<std::size_t>(AlignofA, 8, load_pack_alignment_v);
+            std::size_t       Pos;
+            if ( auto Err = getW().Tell(Pos); Err )
+                return {Err.m_pMessage};
+            if ( const auto Misalign = Pos % Alignment; Misalign )
+            {
+                if ( auto Err = getW().putC(' ', static_cast<int>(Alignment - Misalign), true); Err )
+                    return {Err.m_pMessage};
+            }
+        }
 
         if (auto Err = getW().AlignPutC(' ', static_cast<int>(SizeofA) * static_cast<int>(Count), 8, false); Err)
             return {Err.m_pMessage};
@@ -681,7 +697,7 @@ namespace xserializer
                 }
 
                 // Allocate the size of this pack
-                pPackPointers[iPack] = reinterpret_cast<std::byte*>( m_MemoryCallback.Allocate(Pack.m_PackFlags, Pack.m_UncompressSize, 16 ));
+                pPackPointers[iPack] = reinterpret_cast<std::byte*>( m_MemoryCallback.Allocate(Pack.m_PackFlags, Pack.m_UncompressSize, load_pack_alignment_v ));
 
                 // Store a block that is mark as temp (can/should only be one)
                 if (Pack.m_PackFlags.m_bTempMemory )
