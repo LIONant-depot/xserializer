@@ -128,6 +128,13 @@ namespace xserializer::unittest
                 }
             }
         };
+
+        // A null pointer loads as null (it used to keep the file's padding: 0x2020202020202020)
+        struct null_ptr
+        {
+            constexpr static auto xserializer_version_v = 1;
+            data2   m_Null;
+        };
     }
 }
 
@@ -196,7 +203,14 @@ namespace xserializer::io_functions
 
         return {};
     }
+    //----------------------------------------------------------------------------------
+    template<>
+    xerr SerializeIO<xserializer::unittest::examples::null_ptr>(xserializer::stream& Stream, const xserializer::unittest::examples::null_ptr& Data) noexcept
+    {
+        return Stream.Serialize(Data.m_Null);
+    }
 }
+
 
 //----------------------------------------------------------------------------------
 // Actual code for the examples
@@ -245,9 +259,30 @@ namespace xserializer::unittest
         }
 
         //----------------------------------------------------------------------------------
+        void Test02(void)
+        {
+            std::wstring_view FileName(L"temp:/SerialFileNull.bin");
+            {
+                xserializer::stream SerialFile;
+                null_ptr            TheData{ .m_Null = { .m_Count = 0, .m_Data = {} } };
+                [[maybe_unused]] auto Err = SerialFile.Save(FileName, TheData);
+                assert(!Err);
+            }
+            {
+                xserializer::stream SerialFile;
+                null_ptr*           pTheData;
+                [[maybe_unused]] auto Err = SerialFile.Load(FileName, pTheData);
+                assert(!Err);
+                assert(pTheData->m_Null.m_Count == 0 && pTheData->m_Null.m_Data.m_pValue == nullptr);
+                default_memory_handler_v.Free(xserializer::mem_type{ .m_bUnique = true}, pTheData );
+            }
+        }
+
+        //----------------------------------------------------------------------------------
         void Test(void)
         {
             Test01();
+            Test02();
         }
     }
 }

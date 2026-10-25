@@ -310,7 +310,8 @@ namespace xserializer
         if (pView == nullptr)
         {
             assert(Size == 0);
-            return {};
+            // Written as a raw 0: skipped, the field kept the file's padding (spaces) and loaded as a garbage pointer
+            return Serialize(*reinterpret_cast<const std::uint64_t*>(&pView));
         }
 
         const auto  BackupPackIndex = m_iPack;
